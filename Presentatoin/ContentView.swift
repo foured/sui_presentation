@@ -9,13 +9,15 @@ import SwiftUI
 
 enum NOpts: String, CaseIterable, Identifiable {
     case settings = "Настройки"
+    case shoppingList = "Список покупок"
+    case planetarium = "Планетарий"
     var id: Self { self }
 }
 
 struct ContentView: View {
-    
+
     @State var selectedOpt: NOpts? = nil
-    
+
     var body: some View {
         NavigationSplitView {
             List(NOpts.allCases, selection: $selectedOpt) { opt in
@@ -27,10 +29,19 @@ struct ContentView: View {
                 switch selectedOpt {
                 case .settings:
                     FakeSettingsMenu()
+
+                case .shoppingList:
+                    ListInteractivity()
+                    
+                case .planetarium:
+                    NavStackPath()
+
                 }
+            } else {
+                Text("Выберите опцию")
+                    .foregroundStyle(.secondary)
             }
         }
-
     }
 }
 
